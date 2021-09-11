@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width-device=width, initial-scale=1.0">
+    <title>Register</title>
+
+    <!--custom css link---->
+    <link rel="stylesheet" href="css\style.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="bluebg">
+            <div class="box signin">
+                <h2>Already Have An Account</h2>
+                <button class="signinBtn">Sign in</button>
+            </div>
+            <div class="box signup">
+                <h2>Don't Have An Account</h2>
+                <button class="signupBtn">Sign up</button>
+            </div>
+        </div>
+        <div class="formBx">
+            <div class="form signinForm">
+                <form action= "/login" method= "POST">
+                    <h3>Sign In</h3>
+                    <input type="text" placeholder="Username" name="username">
+                    <input type="password" placeholder="Password" name="password">
+                    <input type="submit" value="Login" name="login">
+                    <a href="#" class="forgot">Forgot Password</a>
+                </form>
+            </div>
+
+            <div class="form signupForm">
+                <form action="/register" method="POST">
+                    <h3>Sign Up</h3>
+                    <input type="text" placeholder="Username" name="username">
+                    <input type="text" placeholder="Email Address" name="email">
+                    <input type="password" placeholder="Password" name="password">
+                    <input type="password" placeholder="Confirm Password" name="confirmpassword">
+                    <input type="submit" value="Register" name="register">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!--custom Javascript file link-->
+    <script src="js/script.js"></script>
+</body>
+
+</html>
