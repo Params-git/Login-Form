@@ -43,11 +43,11 @@ app.post("/login", async (req, res) => {
                 res.send("password incorrect");
             }
         } else {
-            res.send("you must enter correct password or you have to signin");
+            res.send("Invalid login details");
         }
     }
     catch (e) {
-        res.status(500).send();
+        res.status(500).send("Invalid login details");
     }
 });
 
