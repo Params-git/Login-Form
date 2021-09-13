@@ -42,11 +42,13 @@ const studentSchema = new mongoose.Schema({
 //methods: use with instances, static: use with directly with collections
 studentSchema.methods.generateAuthToken = async function() {
     try{
-        const newtoken = jwt.sign({_id: this._id.toString()}, process.env.SECRET_KEY);
-        this.tokens = this.tokens.concat({token: newtoken})
+        // console.log(this._id);
 
+        const token = jwt.sign({_id: this._id.toString()}, process.env.SECRET_KEY);
+        this.tokens = this.tokens.concat({token: token});
         await this.save();
-        console.log("this is token: " + token);
+        console.log("this is token: " + token + "\n" );
+
         return token;
         
     }catch(e){
@@ -58,11 +60,11 @@ studentSchema.methods.generateAuthToken = async function() {
 studentSchema.pre("save", async function(next) {
 
     if(this.isModified("password")){
-        // console.log(`the current password is ${this.password}`);
+        console.log(`the current password is ${this.password}`);
         this.password = await bcrypt.hash(this.password, 10);
-        // console.log(`the current password is ${this.password}`);
-        
-        this.confirmpassword = undefined;
+        console.log(`the current password is ${this.password}`);
+        // this.confirmpassword = await bcrypt.hash(this.password, 10);
+        // this.confirmpassword = undefined;
     }
     next();
 });

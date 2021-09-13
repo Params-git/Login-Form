@@ -74,12 +74,21 @@ app.post("/register", async (req, res) => {
                 confirmpassword: cpassword
             });
 
-            const token = await studentRegister.generateAuthToken();
+            console.log(studentRegister);
+
+            const token = await studentRegister.generateAuthToken(); 
+            console.log(token); 
+
+            res.cookie("jwt", token, {
+                expires: new Date (Date.now() + 30000),
+                httpOnly: true
+            });
 
             const registered = await studentRegister.save();
+            console.log("registered");
             console.log(registered);
 
-            res.status(201).send(registered);
+            res.status(201).render("index");
 
         } else {
             res.send("Your password is not matched.");
