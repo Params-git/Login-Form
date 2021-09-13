@@ -5,6 +5,7 @@ const path = require("path");
 const hbs = require("hbs");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const cookieParser = require("cookie-parser");
 require("../db/conn");
 const StudentReg = require("../model/student");
 const router = require("../src/router/router");
@@ -20,6 +21,7 @@ app.set('view engine', 'hbs');
 app.set("views", view_path);
 // hbs.registerPartials(partials_path);
 
+app.use(cookieParser());
 app.use(router);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -77,12 +79,14 @@ app.post("/register", async (req, res) => {
             console.log(studentRegister);
 
             const token = await studentRegister.generateAuthToken(); 
-            console.log(token); 
 
             res.cookie("jwt", token, {
                 expires: new Date (Date.now() + 30000),
-                httpOnly: true
+                httpOnly: true,
+                secure: true
             });
+
+            console.log(`this is the cookie: ${req.cookies.jwt}`)
 
             const registered = await studentRegister.save();
             console.log("registered");
